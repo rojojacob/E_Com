@@ -9,10 +9,19 @@ import SwiftUI
 
 @main
 struct TouchdownApp: App {
+    @State private var isLoggedIn = false // Track login state
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(Shop())
+            // Use conditional statement to determine which view to show
+            if isLoggedIn {
+                ContentView()
+                    .environmentObject(Shop())
+            } else {
+                LoginView { success in
+                                    isLoggedIn = success // Set isLoggedIn based on the login status
+                                } // Pass the action to set isLoggedIn to true
+            }
         }
     }
 }
